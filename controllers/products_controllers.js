@@ -1,5 +1,5 @@
-import { getConnection, sql } from '../database/connection.js'; // Ajusta la ruta a tu conexión
-import { queryProducts } from '../database/queryProducts.js';
+import { getConnection, sql } from '../DB/db.js';
+import { queryProducts } from '../DB/queries.js';
 
 // 1. OBTENER TODOS LOS PRODUCTOS
 export const getProductos = async (req, res) => {
