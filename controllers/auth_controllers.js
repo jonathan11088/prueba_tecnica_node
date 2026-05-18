@@ -50,7 +50,7 @@ res.status(200).json({message: 'Usuario registrado exitosamente'})
             return res.status(400).json({ message: 'Credenciales incorrectas (Correo no encontrado)' });
         }
 
-        // Obtenemos el usuario encontrado
+        // usuario encontrado
         const usuario = result.recordset[0]; 
 
         
@@ -68,7 +68,7 @@ res.status(200).json({message: 'Usuario registrado exitosamente'})
         );
 
         // 4. Guardar el token en una Cookie
-        res.cookie('token', token, {
+        res.cookie('access_token', token, {
             httpOnly: true, 
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax', 

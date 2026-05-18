@@ -38,16 +38,16 @@ export const crearProducto = async (req, res) => {
     try {
         const { nombre_producto, descripcion_producto } = req.body;
 
-        // Validación simple
+        // Validación 
         if (!nombre_producto || !descripcion_producto) {
             return res.status(400).json({ message: 'Todos los campos son obligatorios' });
         }
 
         const pool = await getConnection();
         await pool.request()
-            .input('nombre', sql.VarChar(100), nombre_producto)
-            .input('descripcion', sql.VarChar(150), descripcion_producto)
-            .query(queryProducts.insert);
+            .input('nombre_producto', sql.VarChar(100), nombre_producto)
+            .input('descripcion_producto', sql.VarChar(150), descripcion_producto)
+            .execute("sp_InsertarProducto");
 
         return res.status(201).json({ message: 'Producto creado exitosamente' });
     } catch (error) {
@@ -68,12 +68,12 @@ export const actualizarProducto = async (req, res) => {
 
         const pool = await getConnection();
         
-        // Ejecutamos el UPDATE
+       
         const result = await pool.request()
-            .input('id', sql.Int, id)
-            .input('nombre', sql.VarChar(100), nombre_producto)
-            .input('descripcion', sql.VarChar(150), descripcion_producto)
-            .query(queryProducts.update);
+            .input('id_producto', sql.Int, id)
+            .input('nombre_producto', sql.VarChar(100), nombre_producto)
+            .input('descripcion_producto', sql.VarChar(150), descripcion_producto)
+            .execute('sp_ModificarProducto');
 
         if (result.rowsAffected[0] === 0) {
             return res.status(404).json({ message: 'Producto no encontrado para actualizar' });
@@ -92,8 +92,8 @@ export const eliminarProducto = async (req, res) => {
         const { id } = req.params;
         const pool = await getConnection();
         const result = await pool.request()
-            .input('id', sql.Int, id)
-            .query(queryProducts.delete);
+            .input('id_producto', sql.Int, id)
+            .execute('sp_EliminarProducto');
 
         if (result.rowsAffected[0] === 0) {
             return res.status(404).json({ message: 'Producto no encontrado' });
