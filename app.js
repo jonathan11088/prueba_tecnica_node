@@ -3,6 +3,7 @@ import "dotenv/config"
 import cookieParser from "cookie-parser";
 
 import { authRoute } from "./routes/auth_route.js";
+import { productsRoute } from "./routes/products_route.js";
 
 
 
@@ -14,6 +15,7 @@ app.use(cookieParser())
 
 
 app.use(authRoute)
+app.use(productsRoute)
 
 app.set("PORT", process.env.PORT)
 
