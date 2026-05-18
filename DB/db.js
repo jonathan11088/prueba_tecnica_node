@@ -11,7 +11,7 @@ const dbconfig = {
     }
 }
 
-const getConnection = async () =>{
+export const getConnection = async () =>{
     try {
         const pool = sql.connect(dbconfig)
         return pool
